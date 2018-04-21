@@ -1,14 +1,16 @@
-var timeoutId;
+var intervalId;
 
 //Event listener to respond to "Show another quote" button clicks
 const button = document.getElementById("loadQuote").addEventListener("click", function() {
-	if (timeoutId) {
-		clearTimeout(timeoutId)
+// after each button click the quote will not change for a maximum of 30 seconds in the absence of a new click
+// if we click again the timer resets to a new period of 30 seconds
+	if (intervalId) {
+		clearInterval(intervalId)
 	}
 	printQuote(quotes)
-	timeoutId = setTimeout(function () {
+	intervalId = setInterval(function () {
 		printQuote(quotes)
-	}, 5000)
+	}, 30000)
 });
 
 //Associating the quote and the background page color to the choosen index
@@ -52,5 +54,3 @@ function printQuote(quotes) {
 	div.innerHTML = quoteToShow;
 }
 
-// despues del click a un boton tenemos 30 segundos hasta que se cambie solo
-// si volvemos a clicar al boton el timer se resetea a 30 segundos otra vez
